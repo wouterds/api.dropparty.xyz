@@ -4,6 +4,7 @@ namespace WouterDeSchuyter\DropParty\Application\Http\Handlers;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
+use Teapot\StatusCode;
 use WouterDeSchuyter\DropParty\Application\Oauth\DropboxOauthProvider;
 use WouterDeSchuyter\DropParty\Domain\Users\User;
 use WouterDeSchuyter\DropParty\Domain\Users\UserRepository;
@@ -47,5 +48,7 @@ class AuthenticateHandler
         );
 
         $this->userRepository->add($user);
+
+        return $response->withStatus(StatusCode::NO_CONTENT);
     }
 }
