@@ -15,7 +15,8 @@
   },
   "autoload": {
     "psr-4": {
-      "WouterDeSchuyter\\DropParty\\": "src"
+      "WouterDeSchuyter\\DropParty\\": "src",
+      "WouterDeSchuyter\\DropParty\\Migrations\\": "database/migrations"
     }
   },
   "require": {
