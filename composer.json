@@ -12,6 +12,8 @@
     "optimize-autoloader": true
   },
   "scripts": {
+    "migrations:generate": "./vendor/bin/doctrine-migrations migrations:generate",
+    "migrations:migrate": "./vendor/bin/doctrine-migrations migrations:migrate --no-interaction"
   },
   "autoload": {
     "psr-4": {
