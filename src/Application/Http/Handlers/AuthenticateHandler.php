@@ -58,6 +58,6 @@ class AuthenticateHandler
 
         $this->userRepository->add($user);
 
-        return $response->withStatus(StatusCode::NO_CONTENT);
+        return $response->withRedirect(getenv('APP_FRONTEND_URL') . '/?userId=' . $user->getId());
     }
 }
