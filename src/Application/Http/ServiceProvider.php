@@ -3,6 +3,7 @@
 namespace WouterDeSchuyter\DropParty\Application\Http;
 
 use Jenssegers\Lean\SlimServiceProvider;
+use WouterDeSchuyter\DropParty\Application\Http\Handlers\ExceptionHandler;
 
 class ServiceProvider extends SlimServiceProvider
 {
@@ -10,8 +11,12 @@ class ServiceProvider extends SlimServiceProvider
     {
         parent::register();
 
-//        $this->container->share('errorHandler', function () {
-//            return
-//        });
+        $this->container->share('errorHandler', function () {
+            return $this->container->get(ExceptionHandler::class);
+        });
+
+        $this->container->share('phpErrorHandler', function () {
+            return $this->container->get(ExceptionHandler::class);
+        });
     }
 }
