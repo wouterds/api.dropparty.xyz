@@ -5,6 +5,7 @@ namespace WouterDeSchuyter\DropParty\Application;
 use League\Container\Container as LeagueContainer;
 use League\Container\ReflectionContainer;
 use WouterDeSchuyter\DropParty\Application\Http\ServiceProvider as HttpServiceProvider;
+use WouterDeSchuyter\DropParty\Application\Oauth\ServiceProvider as OauthServiceProvider;
 use WouterDeSchuyter\DropParty\Infrastructure\Database\ServiceProvider as DatabaseServiceProvider;
 
 class Container extends LeagueContainer
@@ -15,6 +16,7 @@ class Container extends LeagueContainer
         $container->delegate(new ReflectionContainer());
 
         $container->addServiceProvider(HttpServiceProvider::class);
+        $container->addServiceProvider(OauthServiceProvider::class);
         $container->addServiceProvider(DatabaseServiceProvider::class);
 
         return $container;
