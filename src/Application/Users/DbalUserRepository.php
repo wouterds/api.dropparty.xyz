@@ -39,4 +39,24 @@ class DbalUserRepository implements UserRepository
         $query->setValue('name', $query->createNamedParameter($user->getName()));
         $query->execute();
     }
+
+    /**
+     * @param string $dropboxAccountId
+     * @return User
+     */
+    public function getByDropboxAccountId(string $dropboxAccountId): User
+    {
+        $query = $this->connection->createQueryBuilder();
+
+        $query->select('*');
+        $query->from(self::TABLE);
+        $query->where('dropbox_account_id = ' . $query->createNamedParameter($dropboxAccountId));
+        $result = $query->execute();
+
+        if ($result->rowCount() === 0) {
+            return null;
+        }
+
+        return User::fromArray($result->fetch());
+    }
 }
