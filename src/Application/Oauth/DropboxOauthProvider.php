@@ -64,7 +64,7 @@ class DropboxOauthProvider extends AbstractProvider
         return $parameters;
     }
 
-    protected function fetchResourceOwnerDetails(AccessToken $token): mixed
+    protected function fetchResourceOwnerDetails(AccessToken $token): array
     {
         $url = $this->getResourceOwnerDetailsUrl($token);
 
