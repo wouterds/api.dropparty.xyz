@@ -19,3 +19,13 @@ services:
       - ./..:/code
       - ./../storage/logs:/code/storage/logs
       - ./../storage/files:/code/storage/files
+
+  mysql:
+    image: mysql:5.7
+    container_name: internal-dropparty-api-mysql
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+    env_file:
+      - ./../.env
+    ports:
+      - '3306:3306'
