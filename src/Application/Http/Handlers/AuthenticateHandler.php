@@ -28,6 +28,6 @@ class AuthenticateHandler
             'code' => $request->getQueryParam('code'),
         ]);
 
-        dump($accessToken);exit;
+        $resourceOwner = $this->dropboxOauthProvider->getResourceOwner($accessToken);
     }
 }
