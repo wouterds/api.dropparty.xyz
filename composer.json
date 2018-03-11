@@ -1,0 +1,27 @@
+{
+  "name": "dropparty-api",
+  "version": "0.0.1",
+  "authors": [
+    {
+      "name": "Wouter De Schuyter",
+      "email": "wouter.de.schuyter@gmail.com"
+    }
+  ],
+  "config": {
+    "sort-packages": true,
+    "optimize-autoloader": true
+  },
+  "scripts": {
+  },
+  "autoload": {
+    "psr-4": {
+      "WouterDeSchuyter\\DropParty\\": "src"
+    }
+  },
+  "require": {
+    "php": "^7.2.0"
+  },
+  "require-dev": {
+  }
+}
+
