@@ -2,6 +2,7 @@
 
 namespace WouterDeSchuyter\DropParty\Application\Http\Handlers;
 
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Teapot\StatusCode;
@@ -56,7 +57,12 @@ class AuthenticateHandler
             $resourceOwner->toArray()['name']['surname']
         );
 
-        $this->userRepository->add($user);
+        try {
+            $this->userRepository->add($user);
+        } catch (UniqueConstraintViolationException $exception) {
+            // User already exists, get by dropbox id
+            $user = $this->userRepository->getByDropboxAccountId($user->getDropboxAccountId());
+        }
 
         return $response->withRedirect(getenv('APP_FRONTEND_URL') . '/?userId=' . $user->getId());
     }
