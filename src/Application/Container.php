@@ -4,6 +4,7 @@ namespace WouterDeSchuyter\DropParty\Application;
 
 use League\Container\Container as LeagueContainer;
 use League\Container\ReflectionContainer;
+use WouterDeSchuyter\DropParty\Application\Http\ServiceProvider as HttpServiceProvider;
 
 class Container extends LeagueContainer
 {
@@ -12,7 +13,7 @@ class Container extends LeagueContainer
         $container = new static();
         $container->delegate(new ReflectionContainer());
 
-        //$container->addServiceProvider(Class::class);
+        $container->addServiceProvider(HttpServiceProvider::class);
 
         return $container;
     }
