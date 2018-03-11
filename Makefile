@@ -13,3 +13,9 @@ composer.phar:
 
 vendor: composer.phar composer.json composer.lock
 	docker run --rm --volume=$(PWD):/code -w=/code php:7.2-alpine php ./composer.phar install --ignore-platform-reqs --prefer-dist --no-progress --optimize-autoloader
+
+generate-migration: vendor
+	docker exec -i internal-dropparty-api-php-fpm php ./composer.phar migrations:generate
+
+migrate: vendor
+	docker exec -i internal-dropparty-api-php-fpm php ./composer.phar migrations:migrate
