@@ -22,6 +22,15 @@ class DbalUserRepository implements UserRepository
 
     public function add(User $user): void
     {
-        // TODO: Implement add() method.
+        $query = $this->connection->createQueryBuilder();
+
+        $query->insert(self::TABLE);
+        $query->setValue('id', $query->createNamedParameter($user->getId()));
+        $query->setValue('dropbox_account_id', $query->createNamedParameter($user->getDropboxAccountId()));
+        $query->setValue('dropbox_access_token', $query->createNamedParameter($user->getDropboxAccessToken()));
+        $query->setValue('email', $query->createNamedParameter($user->getEmail()));
+        $query->setValue('first_name', $query->createNamedParameter($user->getFirstName()));
+        $query->setValue('name', $query->createNamedParameter($user->getName()));
+        $query->execute();
     }
 }
