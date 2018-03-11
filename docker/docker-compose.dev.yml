@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  nginx:
+    image: nginx:1.13-alpine
+    container_name: internal-dropparty-api-nginx
+    working_dir: /code
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./../public:/code/public
+    ports:
+      - '80:80'
+
+  php-fpm:
+    image: php:7.2-fpm-alpine
+    container_name: internal-dropparty-api-php-fpm
+    working_dir: /code
+    volumes:
+      - ./..:/code
+      - ./../storage/logs:/code/storage/logs
+      - ./../storage/files:/code/storage/files
