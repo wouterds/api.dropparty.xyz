@@ -26,5 +26,6 @@
     "slim/slim": "^3.9"
   },
   "require-dev": {
+    "symfony/var-dumper": "^4.0"
   }
 }
