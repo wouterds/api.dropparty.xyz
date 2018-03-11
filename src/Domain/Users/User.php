@@ -71,6 +71,25 @@ class User implements JsonSerializable
     }
 
     /**
+     * @param array $data
+     * @return User
+     */
+    public static function fromArray(array $data): User
+    {
+        $user = new User(
+            $data['dropbox_account_id'],
+            $data['dropbox_access_token'],
+            $data['email'],
+            $data['first_name'],
+            $data['name']
+        );
+
+        $user->id = new UserId(!empty($data['id']) ? $data['id'] : null);
+
+        return $user;
+    }
+
+    /**
      * @return UserId
      */
     public function getId(): UserId
