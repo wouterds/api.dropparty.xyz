@@ -12,7 +12,7 @@ services:
       - '80:80'
 
   php-fpm:
-    image: php:7.2-fpm-alpine
+    build: php-fpm
     container_name: internal-dropparty-api-php-fpm
     working_dir: /code
     volumes:
