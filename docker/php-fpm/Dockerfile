@@ -5,6 +5,9 @@ LABEL maintainer="Wouter De Schuyter <wouter.de.schuyter@gmail.com>"
 RUN NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) \
   && docker-php-ext-install -j${NPROC} pdo pdo_mysql mysqli
 
+# PHP configuration file
+COPY ./docker/php-fpm/php.ini /usr/local/etc/php/conf.d/custom.ini
+
 # Copy project
 COPY ./ /code
 
