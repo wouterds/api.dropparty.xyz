@@ -21,12 +21,21 @@ class AuthenticateHandler
      */
     private $userRepository;
 
+    /**
+     * @param DropboxOauthProvider $dropboxOauthProvider
+     * @param UserRepository $userRepository
+     */
     public function __construct(DropboxOauthProvider $dropboxOauthProvider, UserRepository $userRepository)
     {
         $this->dropboxOauthProvider = $dropboxOauthProvider;
         $this->userRepository = $userRepository;
     }
 
+    /**
+     * @param Request $request
+     * @param Response $response
+     * @return Response
+     */
     public function __invoke(Request $request, Response $response): Response
     {
         if (empty($request->getQueryParam('code'))) {

@@ -15,11 +15,17 @@ class DbalUserRepository implements UserRepository
      */
     private $connection;
 
+    /**
+     * @param Connection $connection
+     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
+    /**
+     * @param User $user
+     */
     public function add(User $user): void
     {
         $query = $this->connection->createQueryBuilder();

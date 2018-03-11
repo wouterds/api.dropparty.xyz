@@ -8,6 +8,11 @@ use Teapot\StatusCode;
 
 class NotFoundHandler
 {
+    /**
+     * @param Request $request
+     * @param Response $response
+     * @return Response
+     */
     public function __invoke(Request $request, Response $response): Response
     {
         $response->getBody()->write('Not Found');

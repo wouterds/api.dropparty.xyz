@@ -9,6 +9,9 @@ use WouterDeSchuyter\DropParty\Application\Http\Handlers\NotFoundHandler;
 
 class ServiceProvider extends SlimServiceProvider
 {
+    /**
+     * @inheritdoc
+     */
     public function register()
     {
         parent::register();

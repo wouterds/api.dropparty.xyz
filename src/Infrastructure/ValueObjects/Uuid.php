@@ -13,6 +13,9 @@ class Uuid implements JsonSerializable
      */
     protected $value;
 
+    /**
+     * @param string|null $value
+     */
     public function __construct(string $value = null)
     {
         if (!empty($value)) {
@@ -26,6 +29,10 @@ class Uuid implements JsonSerializable
         $this->value = $value;
     }
 
+    /**
+     * @param string $value
+     * @return bool
+     */
     public function isValid(string $value): bool
     {
         if (!BaseUuid::isValid($value)) {
@@ -35,11 +42,17 @@ class Uuid implements JsonSerializable
         return true;
     }
 
+    /**
+     * @return string
+     */
     public function __toString(): string
     {
         return $this->value;
     }
 
+    /**
+     * @return string
+     */
     public function jsonSerialize(): string
     {
         return $this->value;

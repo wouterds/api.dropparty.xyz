@@ -12,6 +12,9 @@ class Version20180311124202 extends AbstractMigration
 {
     private const TABLE = 'user';
 
+    /**
+     * @param Schema $schema
+     */
     public function up(Schema $schema)
     {
         $table = $schema->createTable(self::TABLE);
@@ -29,6 +32,9 @@ class Version20180311124202 extends AbstractMigration
         $table->addUniqueIndex(['email']);
     }
 
+    /**
+     * @param Schema $schema
+     */
     public function down(Schema $schema)
     {
         $schema->dropTable(self::TABLE);

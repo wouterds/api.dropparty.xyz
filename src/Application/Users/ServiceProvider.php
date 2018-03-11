@@ -14,6 +14,9 @@ class ServiceProvider extends AbstractServiceProvider
         UserRepository::class,
     ];
 
+    /**
+     * @inheritdoc
+     */
     public function register()
     {
         $this->container->share(UserRepository::class, function () {

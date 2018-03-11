@@ -11,6 +11,9 @@ use WouterDeSchuyter\DropParty\Infrastructure\Database\ServiceProvider as Databa
 
 class Container extends LeagueContainer
 {
+    /**
+     * @return Container
+     */
     public static function load(): Container
     {
         $container = new static();

@@ -15,6 +15,9 @@ class ServiceProvider extends AbstractServiceProvider
         Connection::class,
     ];
 
+    /**
+     * @inheritdoc
+     */
     public function register()
     {
         $this->container->share(Connection::class, function () {

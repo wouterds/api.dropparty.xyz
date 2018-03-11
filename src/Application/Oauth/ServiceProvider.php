@@ -14,6 +14,9 @@ class ServiceProvider extends AbstractServiceProvider
         DropboxOauthProvider::class,
     ];
 
+    /**
+     * @inheritdoc
+     */
     public function register()
     {
         $this->container->share(DropboxOauthProvider::class, function () {
