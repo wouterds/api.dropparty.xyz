@@ -17,7 +17,7 @@ class User implements JsonSerializable
     /**
      * @var string
      */
-    private $dropboxId;
+    private $dropboxAccountId;
 
     /**
      * @var string
@@ -40,14 +40,14 @@ class User implements JsonSerializable
     private $name;
 
     /**
-     * @param string $dropboxId
+     * @param string $dropboxAccountId
      * @param string $dropboxAccessToken
      * @param string $email
      * @param string|null $firstName
      * @param string|null $name
      */
     public function __construct(
-        string $dropboxId,
+        string $dropboxAccountId,
         string $dropboxAccessToken,
         string $email,
         string $firstName = null,
@@ -63,7 +63,7 @@ class User implements JsonSerializable
             $name = null;
         }
 
-        $this->dropboxId = $dropboxId;
+        $this->dropboxAccountId = $dropboxAccountId;
         $this->dropboxAccessToken = $dropboxAccessToken;
         $this->email = $email;
         $this->firstName = $firstName;
@@ -81,9 +81,9 @@ class User implements JsonSerializable
     /**
      * @return string
      */
-    public function getDropboxId(): string
+    public function getDropboxAccountId(): string
     {
-        return $this->dropboxId;
+        return $this->dropboxAccountId;
     }
 
     /**
