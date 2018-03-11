@@ -1,6 +1,6 @@
 <?php
 
-namespace WouterDeSchuyter\DropParty\Application\Domain\Users;
+namespace WouterDeSchuyter\DropParty\Domain\Users;
 
 use WouterDeSchuyter\DropParty\Infrastructure\ValueObjects\Uuid;
 
