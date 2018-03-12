@@ -4,6 +4,7 @@ namespace WouterDeSchuyter\DropParty\Application\Http\Handlers;
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Lcobucci\JWT\Builder;
+use Lcobucci\JWT\Signer\Hmac\Sha512;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use WouterDeSchuyter\DropParty\Application\Oauth\DropboxOauthProvider;
@@ -73,6 +74,9 @@ class AuthenticateHandler
         $token->set('first_name', $user->getFirstName());
         $token->set('name', $user->getName());
         $token->set('email', $user->getEmail());
+
+        $signer = new Sha512();
+        $token->sign($signer, getenv('JWT_SIGNING_KEY'));
         $token = $token->getToken();
 
         return $response->withRedirect(getenv('APP_FRONTEND_URL') . '/?token=' . $token);
