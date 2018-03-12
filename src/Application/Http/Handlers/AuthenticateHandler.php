@@ -3,6 +3,7 @@
 namespace WouterDeSchuyter\DropParty\Application\Http\Handlers;
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Lcobucci\JWT\Builder;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Teapot\StatusCode;
@@ -64,6 +65,17 @@ class AuthenticateHandler
             $user = $this->userRepository->getByDropboxAccountId($user->getDropboxAccountId());
         }
 
-        return $response->withRedirect(getenv('APP_FRONTEND_URL') . '/?userId=' . $user->getId());
+        // Generate JWT
+        $token = new Builder();
+        $token->setIssuer(getenv('APP_URL'));
+        $token->setExpiration(time() + 60 * 60 * 24 * 7); // 1 week
+        $token->set('user_id', $user->getId());
+        $token->set('dropbox_account_id', $user->getDropboxAccountId());
+        $token->set('first_name', $user->getFirstName());
+        $token->set('name', $user->getName());
+        $token->set('email', $user->getEmail());
+        $token = $token->getToken();
+
+        return $response->withRedirect(getenv('APP_FRONTEND_URL') . '/?token=' . $token);
     }
 }
