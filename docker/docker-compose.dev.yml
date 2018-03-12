@@ -12,7 +12,9 @@ services:
       - '80:80'
 
   php-fpm:
-    build: php-fpm
+    build:
+      context: ./..
+      dockerfile: ./docker/php-fpm/Dockerfile
     container_name: internal-dropparty-api-php-fpm
     working_dir: /code
     volumes:
