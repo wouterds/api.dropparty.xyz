@@ -6,7 +6,6 @@ use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Lcobucci\JWT\Builder;
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Teapot\StatusCode;
 use WouterDeSchuyter\DropParty\Application\Oauth\DropboxOauthProvider;
 use WouterDeSchuyter\DropParty\Domain\Users\User;
 use WouterDeSchuyter\DropParty\Domain\Users\UserRepository;
