@@ -60,7 +60,7 @@ class AuthenticateHandler
         try {
             $this->userRepository->add($user);
         } catch (UniqueConstraintViolationException $exception) {
-            // User already exists, get by dropbox id
+            // User already exists, get by dropbox account id
             $user = $this->userRepository->getByDropboxAccountId($user->getDropboxAccountId());
         }
 
