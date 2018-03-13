@@ -3,5 +3,3 @@
 .env
 .build-*
 docker/data
-vendor
-composer.phar
