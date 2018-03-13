@@ -1,0 +1,34 @@
+version: '2'
+
+services:
+  nginx:
+    image: docker.wouterdeschuyter.be/internal-dropparty-api-nginx
+    restart: unless-stopped
+    env_file:
+      - docker.env
+    environment:
+      - VIRTUAL_HOST=staging-api.dropparty.xyz
+      - LETSENCRYPT_HOST=staging-api.dropparty.xyz
+      - LETSENCRYPT_EMAIL=wouter.de.schuyter@gmail.com
+    networks:
+      - default
+      - nginxproxy_default
+
+  php-fpm:
+    image: docker.wouterdeschuyter.be/internal-dropparty-api-php-fpm
+    restart: unless-stopped
+    env_file:
+      - docker.env
+    volumes:
+      - ./logs:/code/storage/logs
+    external_links:
+      - mariadb
+    networks:
+      - default
+      - databaseserver_default
+
+networks:
+  databaseserver_default:
+    external: true
+  nginxproxy_default:
+    external: true
