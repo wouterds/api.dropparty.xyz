@@ -4,7 +4,7 @@ VERSION = $(shell cat composer.json | grep "version" | sed -e 's/^.*: "\(.*\)".*
 PWD = $(shell pwd)
 
 DOCKER_REPO  = docker.wouterdeschuyter.be
-PROJECT_NAME = internal-dropparty-website
+PROJECT_NAME = internal-dropparty-api
 
 TAG_NGINX = $(DOCKER_REPO)/$(PROJECT_NAME)-nginx
 TAG_PHP_FPM = $(DOCKER_REPO)/$(PROJECT_NAME)-php-fpm
