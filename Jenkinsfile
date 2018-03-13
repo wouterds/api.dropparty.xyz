@@ -53,7 +53,6 @@ def deployStaging() {
   sh 'ssh wouterds@'+SERVER+' "mkdir -p '+folder+'/logs && chmod 777 '+folder+'/logs"'
 
   sh 'scp docker/docker-compose.stag.yml wouterds@'+SERVER+':'+folder+'/docker-compose.yml'
-  sh 'scp docker/docker.stag.env wouterds@'+SERVER+':'+folder+'/docker.env'
 
   sh 'ssh wouterds@'+SERVER+' "cd '+folder+'; docker-compose pull"'
   sh 'ssh wouterds@'+SERVER+' "cd '+folder+'; docker-compose up -d"'
