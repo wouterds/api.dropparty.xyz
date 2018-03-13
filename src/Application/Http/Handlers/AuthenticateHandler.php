@@ -79,6 +79,6 @@ class AuthenticateHandler
         $token->sign($signer, getenv('JWT_SIGNING_KEY'));
         $token = $token->getToken();
 
-        return $response->withRedirect(getenv('APP_FRONTEND_URL') . '/?token=' . $token);
+        return $response->withRedirect(getenv('APP_FRONTEND_URL') . '/authenticate?token=' . $token);
     }
 }
