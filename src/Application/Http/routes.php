@@ -2,8 +2,8 @@
 
 /** @var Slim\App $this */
 
-use WouterDeSchuyter\DropParty\Application\Http\Handlers\AuthenticateHandler;
-use WouterDeSchuyter\DropParty\Application\Http\Handlers\AuthenticateVerifyTokenHandler;
+use WouterDeSchuyter\DropParty\Application\Http\Handlers\AuthHandler;
+use WouterDeSchuyter\DropParty\Application\Http\Handlers\AuthVerifyTokenHandler;
 
-$this->get('/authenticate', AuthenticateHandler::class)->setName('authenticate');
-$this->post('/authenticate/verify-token', AuthenticateVerifyTokenHandler::class)->setName('authenticate.verify-token');
+$this->get('/auth', AuthHandler::class)->setName('auth');
+$this->post('/auth.verify', AuthVerifyTokenHandler::class)->setName('auth');

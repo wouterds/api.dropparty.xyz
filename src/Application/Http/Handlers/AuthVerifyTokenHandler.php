@@ -12,7 +12,7 @@ use Teapot\StatusCode;
 use WouterDeSchuyter\DropParty\Domain\Users\UserId;
 use WouterDeSchuyter\DropParty\Domain\Users\UserRepository;
 
-class AuthenticateVerifyTokenHandler
+class AuthVerifyTokenHandler
 {
     /**
      * @var UserRepository

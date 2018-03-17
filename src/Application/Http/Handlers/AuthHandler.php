@@ -11,7 +11,7 @@ use WouterDeSchuyter\DropParty\Application\Oauth\DropboxOauthProvider;
 use WouterDeSchuyter\DropParty\Domain\Users\User;
 use WouterDeSchuyter\DropParty\Domain\Users\UserRepository;
 
-class AuthenticateHandler
+class AuthHandler
 {
     /**
      * @var DropboxOauthProvider
@@ -78,6 +78,6 @@ class AuthenticateHandler
         $token->sign($signer, getenv('JWT_SIGNING_KEY'));
         $token = $token->getToken();
 
-        return $response->withRedirect(getenv('APP_FRONTEND_URL') . '/authenticate?token=' . $token);
+        return $response->withRedirect(getenv('APP_FRONTEND_URL') . '/auth?token=' . $token);
     }
 }
