@@ -15,8 +15,6 @@ class NotFoundHandler
      */
     public function __invoke(Request $request, Response $response): Response
     {
-        $response->getBody()->write('Not Found');
-
         return $response->withStatus(StatusCode::METHOD_NOT_ALLOWED);
     }
 }

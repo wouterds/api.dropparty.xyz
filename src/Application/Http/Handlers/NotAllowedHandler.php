@@ -15,8 +15,6 @@ class NotAllowedHandler
      */
     public function __invoke(Request $request, Response $response): Response
     {
-        $response->getBody()->write('Not Allowed');
-
         return $response->withStatus(StatusCode::METHOD_NOT_ALLOWED);
     }
 }
