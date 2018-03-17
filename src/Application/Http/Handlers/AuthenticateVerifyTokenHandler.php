@@ -30,11 +30,12 @@ class AuthenticateVerifyTokenHandler
     /**
      * @param Request $request
      * @param Response $response
-     * @param string $token
      * @return Response
      */
-    public function __invoke(Request $request, Response $response, string $token): Response
+    public function __invoke(Request $request, Response $response): Response
     {
+        $token = $request->getParsedBodyParam('token');
+
         try {
             $token = (new Parser())->parse((string) $token);
         } catch (InvalidArgumentException $e) {
