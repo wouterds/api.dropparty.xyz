@@ -68,7 +68,6 @@ class AuthenticateHandler
         // Generate JWT
         $token = new Builder();
         $token->setIssuer(getenv('APP_URL'));
-        $token->setExpiration(time() + 60 * 60 * 24 * 7); // 1 week
         $token->set('user_id', $user->getId());
         $token->set('dropbox_account_id', $user->getDropboxAccountId());
         $token->set('first_name', $user->getFirstName());
