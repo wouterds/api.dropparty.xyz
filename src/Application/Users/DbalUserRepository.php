@@ -4,6 +4,7 @@ namespace WouterDeSchuyter\DropParty\Application\Users;
 
 use Doctrine\DBAL\Connection;
 use WouterDeSchuyter\DropParty\Domain\Users\User;
+use WouterDeSchuyter\DropParty\Domain\Users\UserId;
 use WouterDeSchuyter\DropParty\Domain\Users\UserRepository;
 
 class DbalUserRepository implements UserRepository
@@ -51,6 +52,26 @@ class DbalUserRepository implements UserRepository
         $query->select('*');
         $query->from(self::TABLE);
         $query->where('dropbox_account_id = ' . $query->createNamedParameter($dropboxAccountId));
+        $result = $query->execute();
+
+        if ($result->rowCount() === 0) {
+            return null;
+        }
+
+        return User::fromArray($result->fetch());
+    }
+
+    /**
+     * @param UserId $userId
+     * @return User|null
+     */
+    public function getById(UserId $userId): ?User
+    {
+        $query = $this->connection->createQueryBuilder();
+
+        $query->select('*');
+        $query->from(self::TABLE);
+        $query->where('id = ' . $query->createNamedParameter($userId));
         $result = $query->execute();
 
         if ($result->rowCount() === 0) {
