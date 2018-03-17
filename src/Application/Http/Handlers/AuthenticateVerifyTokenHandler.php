@@ -9,9 +9,24 @@ use RuntimeException;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Teapot\StatusCode;
+use WouterDeSchuyter\DropParty\Domain\Users\UserId;
+use WouterDeSchuyter\DropParty\Domain\Users\UserRepository;
 
 class AuthenticateVerifyTokenHandler
 {
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
+    /**
+     * @param UserRepository $userRepository
+     */
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     /**
      * @param Request $request
      * @param Response $response
@@ -30,6 +45,11 @@ class AuthenticateVerifyTokenHandler
 
         $signer = new Sha512();
         if (!$token->verify($signer, getenv('JWT_SIGNING_KEY'))) {
+            return $response->withStatus(StatusCode::BAD_REQUEST);
+        }
+
+        $user = $this->userRepository->getById(new UserId($token->getClaim('user_id')));
+        if (empty($user)) {
             return $response->withStatus(StatusCode::BAD_REQUEST);
         }
 
