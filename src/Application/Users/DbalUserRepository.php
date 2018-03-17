@@ -42,9 +42,9 @@ class DbalUserRepository implements UserRepository
 
     /**
      * @param string $dropboxAccountId
-     * @return User
+     * @return User|null
      */
-    public function getByDropboxAccountId(string $dropboxAccountId): User
+    public function getByDropboxAccountId(string $dropboxAccountId): ?User
     {
         $query = $this->connection->createQueryBuilder();
 

@@ -11,7 +11,7 @@ interface UserRepository
 
     /**
      * @param string $dropboxAccountId
-     * @return User
+     * @return User|null
      */
-    public function getByDropboxAccountId(string $dropboxAccountId): User;
+    public function getByDropboxAccountId(string $dropboxAccountId): ?User;
 }
