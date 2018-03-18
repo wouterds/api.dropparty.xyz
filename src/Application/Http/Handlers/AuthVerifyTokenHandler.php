@@ -39,19 +39,19 @@ class AuthVerifyTokenHandler
         try {
             $token = (new Parser())->parse((string) $token);
         } catch (InvalidArgumentException $e) {
-            return $response->withStatus(StatusCode::BAD_REQUEST);
+            return $response->withStatus(StatusCode::UNAUTHORIZED);
         } catch (RuntimeException $e) {
-            return $response->withStatus(StatusCode::BAD_REQUEST);
+            return $response->withStatus(StatusCode::UNAUTHORIZED);
         }
 
         $signer = new Sha512();
         if (!$token->verify($signer, getenv('JWT_SIGNING_KEY'))) {
-            return $response->withStatus(StatusCode::BAD_REQUEST);
+            return $response->withStatus(StatusCode::UNAUTHORIZED);
         }
 
         $user = $this->userRepository->getById(new UserId($token->getClaim('user_id')));
         if (empty($user)) {
-            return $response->withStatus(StatusCode::BAD_REQUEST);
+            return $response->withStatus(StatusCode::UNAUTHORIZED);
         }
 
         return $response->withStatus(StatusCode::OK);
