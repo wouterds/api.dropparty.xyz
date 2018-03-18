@@ -25,7 +25,7 @@ class ServiceProvider extends AbstractServiceProvider
             return new DropboxOauthProvider([
                 'clientId' => getenv('DROPBOX_CLIENT_ID'),
                 'clientSecret' => getenv('DROPBOX_CLIENT_SECRET'),
-                'redirectUri' => getenv('APP_URL') . $router->pathFor('authenticate'),
+                'redirectUri' => getenv('APP_URL') . $router->pathFor('auth'),
             ]);
         });
     }
