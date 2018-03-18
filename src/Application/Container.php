@@ -9,6 +9,7 @@ use WouterDeSchuyter\DropParty\Application\Http\ServiceProvider as HttpServicePr
 use WouterDeSchuyter\DropParty\Application\Oauth\ServiceProvider as OauthServiceProvider;
 use WouterDeSchuyter\DropParty\Application\Users\ServiceProvider as UsersServiceProvider;
 use WouterDeSchuyter\DropParty\Infrastructure\Database\ServiceProvider as DatabaseServiceProvider;
+use WouterDeSchuyter\DropParty\Infrastructure\Filesystem\ServiceProvider as FilesystemServiceProvider;
 
 class Container extends LeagueContainer
 {
@@ -25,6 +26,7 @@ class Container extends LeagueContainer
         $container->addServiceProvider(OauthServiceProvider::class);
         $container->addServiceProvider(UsersServiceProvider::class);
         $container->addServiceProvider(DatabaseServiceProvider::class);
+        $container->addServiceProvider(FilesystemServiceProvider::class);
 
         return $container;
     }
