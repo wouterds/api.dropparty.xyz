@@ -28,7 +28,7 @@ class ServiceProvider extends AbstractServiceProvider
             $dropboxClient = new DropboxClient(
                 $authenticatedUser->getUser()->getDropboxAccessToken(),
                 null,
-                getenv('DROPBOX_MAX_UPLOAD_CHUNK_SIZE_MB') * 1024 ^ 2
+                getenv('DROPBOX_MAX_UPLOAD_CHUNK_SIZE_MB') * pow(1024, 2)
             );
 
             $dropboxAdapter = new DropboxAdapter($dropboxClient);
