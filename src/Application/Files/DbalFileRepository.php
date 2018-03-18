@@ -4,6 +4,7 @@ namespace WouterDeSchuyter\DropParty\Application\Files;
 
 use Doctrine\DBAL\Connection;
 use WouterDeSchuyter\DropParty\Domain\Files\File;
+use WouterDeSchuyter\DropParty\Domain\Files\FileId;
 use WouterDeSchuyter\DropParty\Domain\Files\FileRepository;
 
 class DbalFileRepository implements FileRepository
@@ -38,5 +39,25 @@ class DbalFileRepository implements FileRepository
         $query->setValue('size', $query->createNamedParameter($file->getSize()));
         $query->setValue('md5', $query->createNamedParameter($file->getMd5()));
         $query->execute();
+    }
+
+    /**
+     * @param FileId $fileId
+     * @return null|File
+     */
+    public function getById(FileId $fileId): ?File
+    {
+        $query = $this->connection->createQueryBuilder();
+
+        $query->select('*');
+        $query->from(self::TABLE);
+        $query->where('id = ' . $query->createNamedParameter($fileId));
+        $result = $query->execute();
+
+        if ($result->rowCount() === 0) {
+            return null;
+        }
+
+        return File::fromArray($result->fetch());
     }
 }

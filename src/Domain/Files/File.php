@@ -56,6 +56,25 @@ class File implements JsonSerializable
     }
 
     /**
+     * @param array $data
+     * @return File
+     */
+    public static function fromArray(array $data): File
+    {
+        $file = new File(
+            new UserId($data['user_id']),
+            $data['name'],
+            $data['content_type'],
+            $data['size'],
+            $data['md5']
+        );
+
+        $file->id = new FileId(!empty($data['id']) ? $data['id'] : null);
+
+        return $file;
+    }
+
+    /**
      * @return FileId
      */
     public function getId(): FileId
