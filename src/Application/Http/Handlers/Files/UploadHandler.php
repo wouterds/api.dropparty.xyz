@@ -3,9 +3,13 @@
 namespace WouterDeSchuyter\DropParty\Application\Http\Handlers\Files;
 
 use Exception;
+use League\Flysystem\Filesystem;
+use Psr\Http\Message\UploadedFileInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Teapot\StatusCode;
+use WouterDeSchuyter\DropParty\Domain\Files\File;
+use WouterDeSchuyter\DropParty\Domain\Files\FileRepository;
 use WouterDeSchuyter\DropParty\Domain\Users\AuthenticatedUser;
 
 class UploadHandler
@@ -16,11 +20,28 @@ class UploadHandler
     private $authenticatedUser;
 
     /**
-     * @param AuthenticatedUser $authenticatedUser
+     * @var Filesystem
      */
-    public function __construct(AuthenticatedUser $authenticatedUser)
-    {
+    private $filesystem;
+
+    /**
+     * @var FileRepository
+     */
+    private $fileRepository;
+
+    /**
+     * @param AuthenticatedUser $authenticatedUser
+     * @param Filesystem $filesystem
+     * @param FileRepository $fileRepository
+     */
+    public function __construct(
+        AuthenticatedUser $authenticatedUser,
+        Filesystem $filesystem,
+        FileRepository $fileRepository
+    ) {
         $this->authenticatedUser = $authenticatedUser;
+        $this->filesystem = $filesystem;
+        $this->fileRepository = $fileRepository;
     }
 
     /**
@@ -36,7 +57,31 @@ class UploadHandler
             return $response->withStatus(StatusCode::BAD_REQUEST);
         }
 
+        /** @var UploadedFileInterface $uploadedFile */
+        $uploadedFile = $request->getUploadedFiles()['file'];
 
+        $file = new File(
+            $this->authenticatedUser->getUser()->getId(),
+            $uploadedFile->getClientFilename(),
+            $uploadedFile->getClientMediaType(),
+            $uploadedFile->getSize(),
+            md5($uploadedFile->getStream()->getContents()) // To be optimized
+        );
+
+        if (!$this->filesystem->putStream($file->getPath(), $uploadedFile->getStream()->detach())) {
+            return $response->withStatus(StatusCode::BAD_REQUEST);
+        }
+
+        try {
+            $this->fileRepository->add($file);
+        } catch (Exception $e) {
+            $this->filesystem->delete($file->getPath());
+            return $response->withStatus(StatusCode::BAD_REQUEST);
+        }
+
+        return $response->withJson([
+            'data' => $file,
+        ]);
     }
 
     /**
