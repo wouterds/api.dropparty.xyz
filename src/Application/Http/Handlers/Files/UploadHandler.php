@@ -3,7 +3,6 @@
 namespace WouterDeSchuyter\DropParty\Application\Http\Handlers\Files;
 
 use Exception;
-use League\Flysystem\Filesystem;
 use Psr\Http\Message\UploadedFileInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -11,6 +10,7 @@ use Teapot\StatusCode;
 use WouterDeSchuyter\DropParty\Domain\Files\File;
 use WouterDeSchuyter\DropParty\Domain\Files\FileRepository;
 use WouterDeSchuyter\DropParty\Domain\Users\AuthenticatedUser;
+use WouterDeSchuyter\DropParty\Infrastructure\Filesystem\Filesystem;
 
 class UploadHandler
 {
