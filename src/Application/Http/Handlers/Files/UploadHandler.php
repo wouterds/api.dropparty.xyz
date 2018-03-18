@@ -2,8 +2,10 @@
 
 namespace WouterDeSchuyter\DropParty\Application\Http\Handlers\Files;
 
+use Exception;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use Teapot\StatusCode;
 
 class UploadHandler
 {
@@ -14,8 +16,23 @@ class UploadHandler
      */
     public function __invoke(Request $request, Response $response): Response
     {
-        $response->getBody()->write('Hello World');
+        try {
+            $this->validate($request);
+        } catch (Exception $e) {
+            return $response->withStatus(StatusCode::BAD_REQUEST);
+        }
 
-        return $response;
+
+    }
+
+    /**
+     * @param Request $request
+     * @throws Exception
+     */
+    private function validate(Request $request)
+    {
+        if (empty($request->getUploadedFiles()['file'])) {
+            throw new Exception('No files provided!');
+        }
     }
 }
