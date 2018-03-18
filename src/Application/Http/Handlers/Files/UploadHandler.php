@@ -6,9 +6,23 @@ use Exception;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Teapot\StatusCode;
+use WouterDeSchuyter\DropParty\Domain\Users\AuthenticatedUser;
 
 class UploadHandler
 {
+    /**
+     * @var AuthenticatedUser
+     */
+    private $authenticatedUser;
+
+    /**
+     * @param AuthenticatedUser $authenticatedUser
+     */
+    public function __construct(AuthenticatedUser $authenticatedUser)
+    {
+        $this->authenticatedUser = $authenticatedUser;
+    }
+
     /**
      * @param Request $request
      * @param Response $response
