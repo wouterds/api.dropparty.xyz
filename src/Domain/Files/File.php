@@ -3,6 +3,7 @@
 namespace WouterDeSchuyter\DropParty\Domain\Files;
 
 use JsonSerializable;
+use Mimey\MimeTypes;
 use WouterDeSchuyter\DropParty\Domain\Users\UserId;
 
 class File implements JsonSerializable
@@ -103,10 +104,48 @@ class File implements JsonSerializable
     }
 
     /**
+     * @return string
+     */
+    public function getExtension(): string
+    {
+        // Content type helper
+        $mimes = new MimeTypes;
+
+        // Try to get extension by filename
+        $ext = pathinfo($this->getName(), PATHINFO_EXTENSION);
+
+        // No content type found?
+        if (empty($mimes->getMimeType($ext))) {
+            // Try to get extension by content type
+            $ext = $mimes->getExtension($this->getContentType());
+        }
+
+        // No extension found?
+        if (empty($ext)) {
+            // Fallback to bin
+            $ext = 'bin';
+        }
+
+        return $ext;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath(): string
+    {
+        return "/{$this->getId()}.{$this->getExtension()}";
+    }
+
+    /**
      * @return array
      */
     public function jsonSerialize(): array
     {
-        return get_object_vars($this);
+        $data = get_object_vars($this);
+        $data['path'] = $this->getPath();
+        $data['extension'] = $this->getExtension();
+
+        return $data;
     }
 }
