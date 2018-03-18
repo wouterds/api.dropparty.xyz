@@ -18,6 +18,7 @@ class Version20180318105343 extends AbstractMigration
     public function up(Schema $schema)
     {
         $table = $schema->createTable(self::TABLE);
+
         $table->addColumn('id', 'uuid');
         $table->addColumn('user_id', 'uuid');
         $table->addColumn('name', 'string')->setLength(64);

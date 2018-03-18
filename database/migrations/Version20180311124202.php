@@ -18,6 +18,7 @@ class Version20180311124202 extends AbstractMigration
     public function up(Schema $schema)
     {
         $table = $schema->createTable(self::TABLE);
+
         $table->addColumn('id', 'uuid');
         $table->addColumn('dropbox_account_id', 'string')->setLength(64);
         $table->addColumn('dropbox_access_token', 'string')->setLength(64);
