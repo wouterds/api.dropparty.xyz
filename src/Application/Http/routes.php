@@ -5,8 +5,9 @@
 use WouterDeSchuyter\DropParty\Application\Http\Handlers\AuthHandler;
 use WouterDeSchuyter\DropParty\Application\Http\Handlers\AuthVerifyTokenHandler;
 use WouterDeSchuyter\DropParty\Application\Http\Handlers\Files\UploadHandler as FilesUploadHandler;
+use WouterDeSchuyter\DropParty\Application\Http\Middlewares\AuthenticatedUserMiddleware;
 
 $this->get('/auth', AuthHandler::class)->setName('auth');
 $this->post('/auth.verify', AuthVerifyTokenHandler::class)->setName('auth');
 
-$this->get('/files.upload', FilesUploadHandler::class);
+$this->get('/files.upload', FilesUploadHandler::class)->add(AuthenticatedUserMiddleware::class);
